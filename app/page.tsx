@@ -28,12 +28,30 @@ const animeList = [
 
 export default function Home() {
     const [search, setSearch] = useState("");
+    const [selectedGenre, setSelectedGenre] = useState("");
 
-  const filteredAnime = animeList.filter((anime) =>
-    `${anime.title} ${anime.original}`
+    const genres = Array.from(
+    new Set(
+      animeList.flatMap((anime) =>
+        anime.genre.split("·").map((genre) => genre.trim())
+      )
+    )
+  ).sort();
+
+  const filteredAnime = animeList.filter((anime) => {
+    const matchesSearch = `${anime.title} ${anime.original}`
       .toLowerCase()
-      .includes(search.trim().toLowerCase())
-  );
+      .includes(search.trim().toLowerCase());
+
+    const matchesGenre =
+      selectedGenre === "" ||
+      anime.genre
+        .split("·")
+        .map((genre) => genre.trim())
+        .includes(selectedGenre);
+
+    return matchesSearch && matchesGenre;
+  });
   return (
     <div className="min-h-screen bg-[#0b0b14] text-white">
       <header className="border-b border-white/10">
@@ -96,7 +114,27 @@ export default function Home() {
     className="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-gray-500 focus:border-violet-500 focus:outline-none"
   />
 </div>
-
+<div className="mb-6">
+  <label
+    htmlFor="anime-genre"
+    className="mb-2 block text-sm text-gray-300"
+  >
+    Жанр
+  </label>
+  <select
+    id="anime-genre"
+    value={selectedGenre}
+    onChange={(event) => setSelectedGenre(event.target.value)}
+    className="w-full rounded-xl border border-white/15 bg-[#151521] px-4 py-3 text-white focus:border-violet-500 focus:outline-none"
+  >
+    <option value="">Все жанры</option>
+    {genres.map((genre) => (
+      <option key={genre} value={genre}>
+        {genre}
+      </option>
+    ))}
+  </select>
+</div>
 {filteredAnime.length === 0 && (
   <p className="mb-6 text-gray-400">
     Ничего не найдено. Попробуй другое название.
