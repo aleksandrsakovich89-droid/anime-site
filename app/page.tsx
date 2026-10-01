@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 const animeList = [
   {
@@ -24,6 +27,13 @@ const animeList = [
 ];
 
 export default function Home() {
+    const [search, setSearch] = useState("");
+
+  const filteredAnime = animeList.filter((anime) =>
+    `${anime.title} ${anime.original}`
+      .toLowerCase()
+      .includes(search.trim().toLowerCase())
+  );
   return (
     <div className="min-h-screen bg-[#0b0b14] text-white">
       <header className="border-b border-white/10">
@@ -70,9 +80,30 @@ export default function Home() {
           <h2 className="mb-6 text-2xl font-bold">
             С чего начать
           </h2>
+<div className="mb-6">
+  <label
+    htmlFor="anime-search"
+    className="mb-2 block text-sm text-gray-300"
+  >
+    Поиск аниме
+  </label>
+  <input
+    id="anime-search"
+    type="search"
+    value={search}
+    onChange={(event) => setSearch(event.target.value)}
+    placeholder="Название на русском или английском"
+    className="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-gray-500 focus:border-violet-500 focus:outline-none"
+  />
+</div>
 
+{filteredAnime.length === 0 && (
+  <p className="mb-6 text-gray-400">
+    Ничего не найдено. Попробуй другое название.
+  </p>
+)}
           <div className="grid items-start gap-6 md:grid-cols-3">
-            {animeList.map((anime, index) => (
+            {filteredAnime.map((anime, index) => (
               <article
                 key={anime.original}
                 className="flex flex-col rounded-2xl border border-white/10 bg-[#151521] p-6 transition hover:border-violet-500/60"
