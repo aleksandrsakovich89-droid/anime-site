@@ -1,69 +1,171 @@
 import Image from "next/image";
+const animeList = [
+  {
+    title: "Атака титанов",
+    original: "Attack on Titan",
+    genre: "Экшен · Драма · Тёмное фэнтези",
+    description:
+      "Люди укрываются за огромными стенами от титанов. Когда привычная защита рушится, Эрен и его друзья вступают в борьбу, которая меняет их представление о мире.",
+  },
+  {
+    title: "Тетрадь смерти",
+    original: "Death Note",
+    genre: "Триллер · Детектив · Мистика",
+    description:
+      "Школьник Лайт Ягами находит тетрадь, способную убивать людей. Его стремление установить собственную справедливость превращается в интеллектуальное противостояние с загадочным детективом L.",
+  },
+  {
+    title: "Твоё имя",
+    original: "Your Name",
+    genre: "Романтика · Драма · Фэнтези",
+    description:
+      "Парень из Токио и девушка из провинциального городка неожиданно начинают меняться телами. Они пытаются найти друг друга и понять, что связывает их жизни.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="min-h-screen bg-[#0b0b14] text-white">
+      <header className="border-b border-white/10">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-6">
+          <a href="/" className="text-2xl font-black tracking-tight">
+            ANIME<span className="text-violet-400">VERSE</span>
+          </a>
+
+          <a
+            href="#catalog"
+            className="text-base text-gray-300 hover:text-violet-400"
+          >
+            Каталог аниме
+          </a>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-6xl px-6 py-12 md:py-20">
+        <section className="mb-14 max-w-3xl">
+          <p className="mb-4 font-semibold text-violet-400">
+            Открой для себя аниме
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+
+          <h1 className="text-4xl font-black leading-tight md:text-6xl">
+            Какая история
+            <br />
+            станет твоей любимой?
+          </h1>
+
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-gray-400">
+            Познакомься с героями и мирами — от напряжённых детективов
+            до историй о любви.
+          </p>
+
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#catalog"
+            className="mt-8 inline-block rounded-xl bg-violet-600 px-6 py-3 font-semibold transition hover:bg-violet-500"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
+            Выбрать аниме
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+        </section>
+
+        <section id="catalog" className="scroll-mt-8">
+          <h2 className="mb-6 text-2xl font-bold">
+            С чего начать
+          </h2>
+
+          <div className="grid items-start gap-6 md:grid-cols-3">
+            {animeList.map((anime, index) => (
+              <article
+                key={anime.original}
+                className="flex flex-col rounded-2xl border border-white/10 bg-[#151521] p-6 transition hover:border-violet-500/60"
+              >
+                <span className="mb-8 text-4xl font-black text-violet-400">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                <p className="mb-2 text-sm text-gray-400">
+                  {anime.original}
+                </p>
+              
+                <Image
+  src={
+    anime.original === "Attack on Titan"
+      ? "/anime/attack-on-titan.jpg"
+      : anime.original === "Death Note"
+        ? "/anime/death-note.jpg"
+        : "/anime/your-name.jpeg"
+  }
+  alt={`Постер аниме «${anime.title}»`}
+  width={700}
+  height={1024}
+  sizes="(max-width: 768px) 100vw, 33vw"
+  className="mb-5 aspect-[2/3] w-full rounded-xl bg-black object-contain"
+/>
+                <h3 className="text-2xl font-bold">
+                  {anime.title}
+                </h3>
+
+                <p className="mt-3 text-sm leading-relaxed text-violet-300">
+                  {anime.genre}
+                </p>
+
+                <p className="mt-5 text-base leading-relaxed text-gray-300">
+                  {anime.description}
+                </p>
+                {anime.original === "Attack on Titan" && (
+  <div className="mt-6">
+    <h4 className="mb-3 font-semibold">
+      Трейлер на русском
+    </h4>
+    <a
+      href="https://rutube.ru/video/dbe0f3bf1aab168ab4d7d207f7321f05/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-3 inline-block text-sm text-violet-300 underline"
+    >
+      Открыть трейлер на RUTUBE
+    </a>
+  </div>
+)}
+
+{anime.original === "Death Note" && (
+  <div className="mt-6">
+    <h4 className="mb-3 font-semibold">
+      Трейлер аниме
+    </h4>
+
+    <a
+      href="https://www.kinopoisk.ru/film/406148/video/163539/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block rounded-xl bg-violet-600 px-5 py-3 font-semibold transition hover:bg-violet-500"
+    >
+      Смотреть на Кинопоиске
+    </a>
+  </div>
+)}
+                {anime.original === "Your Name" && (
+  <div className="mt-6">
+    <h4 className="mb-3 font-semibold">
+      Трейлер на русском
+    </h4>
+    <a
+      href="https://rutube.ru/video/0ae79d1eefaa1fce86a07b67d86576b6/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-3 inline-block text-sm text-violet-300 underline"
+    >
+      Открыть трейлер на RUTUBE
+    </a>
+  </div>
+)}
+              </article>
+            ))}
+          </div>
+        </section>
       </main>
+
+      <footer className="border-t border-white/10 px-6 py-6 text-center text-sm text-gray-400">
+        ANIMEVERSE · Знакомство с миром аниме
+      </footer>
     </div>
   );
 }
