@@ -1,30 +1,10 @@
+
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
-const animeList = [
-  {
-    title: "Атака титанов",
-    original: "Attack on Titan",
-    genre: "Экшен · Драма · Тёмное фэнтези",
-    description:
-      "Люди укрываются за огромными стенами от титанов. Когда привычная защита рушится, Эрен и его друзья вступают в борьбу, которая меняет их представление о мире.",
-  },
-  {
-    title: "Тетрадь смерти",
-    original: "Death Note",
-    genre: "Триллер · Детектив · Мистика",
-    description:
-      "Школьник Лайт Ягами находит тетрадь, способную убивать людей. Его стремление установить собственную справедливость превращается в интеллектуальное противостояние с загадочным детективом L.",
-  },
-  {
-    title: "Твоё имя",
-    original: "Your Name",
-    genre: "Романтика · Драма · Фэнтези",
-    description:
-      "Парень из Токио и девушка из провинциального городка неожиданно начинают меняться телами. Они пытаются найти друг друга и понять, что связывает их жизни.",
-  },
-];
+import { animeList } from "../data/anime";
 
 export default function Home() {
     const [search, setSearch] = useState("");
@@ -169,8 +149,13 @@ export default function Home() {
   className="mb-5 aspect-[2/3] w-full rounded-xl bg-black object-contain"
 />
                 <h3 className="text-2xl font-bold">
-                  {anime.title}
-                </h3>
+  <Link
+    href={`/anime/${anime.slug}`}
+    className="hover:text-violet-300"
+  >
+    {anime.title}
+  </Link>
+</h3>
 
                 <p className="mt-3 text-sm leading-relaxed text-violet-300">
                   {anime.genre}
