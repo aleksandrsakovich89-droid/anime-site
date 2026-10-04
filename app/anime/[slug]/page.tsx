@@ -54,7 +54,7 @@ export default async function AnimePage({
             </h1>
             <p className="mt-3 text-gray-400">{anime.original}</p>
             <p className="mt-3 text-gray-400">
-  {anime.year} · {anime.format}
+  Год выпуска: {anime.year} · {anime.format}
 </p>
             <p className="mt-5 text-violet-300">{anime.genre}</p>
 
