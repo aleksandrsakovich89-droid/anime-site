@@ -134,6 +134,9 @@ export default function Home() {
                   {anime.original}
                 </p>
               
+                <p className="mb-4 text-sm text-gray-400">
+  {anime.year} · {anime.format}
+</p>
                 <Image
   src={
     anime.original === "Attack on Titan"
