@@ -3,6 +3,8 @@ export const animeList = [
    slug: "attack-on-titan",
     title: "Атака титанов",
     original: "Attack on Titan",
+    year: 2013,
+    format: "Сериал",
     genre: "Экшен · Драма · Тёмное фэнтези",
     trailerUrl: "https://rutube.ru/video/dbe0f3bf1aab168ab4d7d207f7321f05/",
     description:
@@ -12,6 +14,8 @@ export const animeList = [
     slug: "death-note",
     title: "Тетрадь смерти",
     original: "Death Note",
+    year: 2006,
+format: "Сериал",
     genre: "Триллер · Детектив · Мистика",
     trailerUrl: "https://www.kinopoisk.ru/film/406148/video/163539/",
     description:
@@ -21,6 +25,8 @@ export const animeList = [
     slug: "your-name",
     title: "Твоё имя",
     original: "Your Name",
+    year: 2016,
+format: "Фильм",
     genre: "Романтика · Драма · Фэнтези",
     trailerUrl: "https://rutube.ru/video/0ae79d1eefaa1fce86a07b67d86576b6/",
     description:

@@ -53,6 +53,9 @@ export default async function AnimePage({
               {anime.title}
             </h1>
             <p className="mt-3 text-gray-400">{anime.original}</p>
+            <p className="mt-3 text-gray-400">
+  {anime.year} · {anime.format}
+</p>
             <p className="mt-5 text-violet-300">{anime.genre}</p>
 
             <h2 className="mt-8 text-xl font-semibold">
