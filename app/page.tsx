@@ -129,6 +129,14 @@ export default function Home() {
                 <span className="mb-8 text-4xl font-black text-violet-400">
                   {String(index + 1).padStart(2, "0")}
                 </span>
+                <h3 className="mb-2 text-2xl font-bold text-white">
+  <Link
+    href={`/anime/${anime.slug}`}
+    className="hover:text-violet-400"
+  >
+    {anime.title}
+  </Link>
+</h3>
 
                 <p className="mb-2 text-sm text-gray-400">
                   {anime.original}
