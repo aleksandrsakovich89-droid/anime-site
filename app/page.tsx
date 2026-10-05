@@ -89,71 +89,77 @@ const [sortOrder, setSortOrder] = useState("default");
             С чего начать
           </h2>
 <div className="mb-6">
-  <label
-    htmlFor="anime-search"
-    className="mb-2 block text-sm text-gray-300"
-  >
-    Поиск аниме
-  </label>
-  <input
-    id="anime-search"
-    type="search"
-    value={search}
-    onChange={(event) => setSearch(event.target.value)}
-    placeholder="Название на русском или английском"
-    className="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-gray-500 focus:border-violet-500 focus:outline-none"
-  />
-</div>
-<div className="mb-6">
-  <label
-    htmlFor="anime-genre"
-    className="mb-2 block text-sm text-gray-300"
-  >
-    Жанр
-  </label>
-  <select
-    id="anime-genre"
-    value={selectedGenre}
-    onChange={(event) => setSelectedGenre(event.target.value)}
-    className="w-full rounded-xl border border-white/15 bg-[#151521] px-4 py-3 text-white focus:border-violet-500 focus:outline-none"
-  >
-    <option value="">Все жанры</option>
-    {genres.map((genre) => (
-      <option key={genre} value={genre}>
-        {genre}
-      </option>
-    ))}
-  </select>
-<div className="mt-4">
-  <label
-    htmlFor="anime-sort"
-    className="mb-2 block text-sm text-gray-300"
-  >
-    Сортировка
-  </label>
+  <div className="grid gap-4 lg:grid-cols-[2fr_1fr_1fr]">
+    <div>
+      <label
+        htmlFor="anime-search"
+        className="mb-2 block text-sm text-gray-300"
+      >
+        Поиск аниме
+      </label>
+      <input
+        id="anime-search"
+        type="text"
+        value={search}
+        onChange={(event) => setSearch(event.target.value)}
+        placeholder="Название на русском или английском"
+        className="h-12 w-full rounded-xl border border-white/15 bg-[#151521] px-4 text-white outline-none focus:border-violet-400"
+      />
+    </div>
 
-  <select
-    id="anime-sort"
-    value={sortOrder}
-    onChange={(event) => setSortOrder(event.target.value)}
-    className="w-full rounded-xl border border-white/15 bg-[#151521] px-4 py-3 text-white"
+    <div>
+      <label
+        htmlFor="anime-genre"
+        className="mb-2 block text-sm text-gray-300"
+      >
+        Жанр
+      </label>
+      <select
+        id="anime-genre"
+        value={selectedGenre}
+        onChange={(event) => setSelectedGenre(event.target.value)}
+        className="h-12 w-full rounded-xl border border-white/15 bg-[#151521] px-4 text-white outline-none focus:border-violet-400"
+      >
+        <option value="">Все жанры</option>
+        {genres.map((genre) => (
+          <option key={genre} value={genre}>
+            {genre}
+          </option>
+        ))}
+      </select>
+    </div>
+
+    <div>
+      <label
+        htmlFor="anime-sort"
+        className="mb-2 block text-sm text-gray-300"
+      >
+        Сортировка
+      </label>
+      <select
+        id="anime-sort"
+        value={sortOrder}
+        onChange={(event) => setSortOrder(event.target.value)}
+        className="h-12 w-full rounded-xl border border-white/15 bg-[#151521] px-4 text-white outline-none focus:border-violet-400"
+      >
+        <option value="default">По умолчанию</option>
+        <option value="newest">Сначала новые</option>
+        <option value="oldest">Сначала старые</option>
+      </select>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    onClick={() => {
+      setSearch("");
+      setSelectedGenre("");
+      setSortOrder("default");
+    }}
+    className="mt-4 rounded-xl border border-violet-400/40 px-4 py-3 text-violet-300 transition hover:bg-violet-500/10"
   >
-    <option value="default">По умолчанию</option>
-    <option value="newest">Сначала новые</option>
-    <option value="oldest">Сначала старые</option>
-  </select>
-</div>
-<button
-  type="button"
-  onClick={() => {
-    setSearch("");
-    setSelectedGenre("");
-    setSortOrder("default");
-  }}
-  className="mt-4 rounded-xl border border-violet-400/40 px-4 py-3 text-violet-300 transition hover:bg-violet-500/10"
->
-  Сбросить фильтры
-</button>
+    Сбросить фильтры
+  </button>
 </div>
 {filteredAnime.length === 0 && (
   <p className="mb-6 text-gray-400">
