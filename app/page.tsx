@@ -143,6 +143,17 @@ const [sortOrder, setSortOrder] = useState("default");
     <option value="oldest">Сначала старые</option>
   </select>
 </div>
+<button
+  type="button"
+  onClick={() => {
+    setSearch("");
+    setSelectedGenre("");
+    setSortOrder("default");
+  }}
+  className="mt-4 rounded-xl border border-violet-400/40 px-4 py-3 text-violet-300 transition hover:bg-violet-500/10"
+>
+  Сбросить фильтры
+</button>
 </div>
 {filteredAnime.length === 0 && (
   <p className="mb-6 text-gray-400">
