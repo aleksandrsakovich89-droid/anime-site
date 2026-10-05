@@ -9,7 +9,7 @@ import { animeList } from "../data/anime";
 export default function Home() {
     const [search, setSearch] = useState("");
     const [selectedGenre, setSelectedGenre] = useState("");
-
+const [sortOrder, setSortOrder] = useState("default");
     const genres = Array.from(
     new Set(
       animeList.flatMap((anime) =>
@@ -30,8 +30,18 @@ export default function Home() {
         .map((genre) => genre.trim())
         .includes(selectedGenre);
 
-    return matchesSearch && matchesGenre;
-  });
+   return matchesSearch && matchesGenre;
+}).sort((a, b) => {
+  if (sortOrder === "newest") {
+    return b.year - a.year;
+  }
+
+  if (sortOrder === "oldest") {
+    return a.year - b.year;
+  }
+
+  return 0;
+});
   return (
     <div className="min-h-screen bg-[#0b0b14] text-white">
       <header className="border-b border-white/10">
@@ -114,6 +124,25 @@ export default function Home() {
       </option>
     ))}
   </select>
+<div className="mt-4">
+  <label
+    htmlFor="anime-sort"
+    className="mb-2 block text-sm text-gray-300"
+  >
+    Сортировка
+  </label>
+
+  <select
+    id="anime-sort"
+    value={sortOrder}
+    onChange={(event) => setSortOrder(event.target.value)}
+    className="w-full rounded-xl border border-white/15 bg-[#151521] px-4 py-3 text-white"
+  >
+    <option value="default">По умолчанию</option>
+    <option value="newest">Сначала новые</option>
+    <option value="oldest">Сначала старые</option>
+  </select>
+</div>
 </div>
 {filteredAnime.length === 0 && (
   <p className="mb-6 text-gray-400">
