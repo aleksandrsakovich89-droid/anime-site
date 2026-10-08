@@ -161,6 +161,9 @@ const [sortOrder, setSortOrder] = useState("default");
     Сбросить фильтры
   </button>
 </div>
+<p className="mb-4 text-sm text-gray-400" role="status">
+  Найдено: {filteredAnime.length} из {animeList.length}
+</p>
 {filteredAnime.length === 0 && (
   <p className="mb-6 text-gray-400">
     Ничего не найдено. Попробуй другое название.
