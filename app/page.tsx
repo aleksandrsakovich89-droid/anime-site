@@ -2,13 +2,56 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { animeList } from "../data/anime";
 
 export default function Home() {
     const [search, setSearch] = useState("");
     const [selectedGenre, setSelectedGenre] = useState("");
+    const [favorites, setFavorites] = useState<string[]>([]);
+const [favoritesLoaded, setFavoritesLoaded] = useState(false);
+const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+
+useEffect(() => {
+  try {
+    const saved = localStorage.getItem("anime-favorites");
+
+    if (saved) {
+      const parsed: unknown = JSON.parse(saved);
+
+      if (Array.isArray(parsed)) {
+        setFavorites(
+          parsed.filter(
+            (slug): slug is string => typeof slug === "string"
+          )
+        );
+      }
+    }
+  } catch {
+    // Если сохранённые данные повреждены, список останется пустым.
+  }
+
+  setFavoritesLoaded(true);
+}, []);
+
+useEffect(() => {
+  if (!favoritesLoaded) return;
+
+  try {
+    localStorage.setItem("anime-favorites", JSON.stringify(favorites));
+  } catch {
+    // Избранное продолжит работать, даже если сохранение недоступно.
+  }
+}, [favorites, favoritesLoaded]);
+
+function toggleFavorite(slug: string) {
+  setFavorites((current) =>
+    current.includes(slug)
+      ? current.filter((item) => item !== slug)
+      : [...current, slug]
+  );
+}
 const [sortOrder, setSortOrder] = useState("default");
     const genres = Array.from(
     new Set(
@@ -30,7 +73,10 @@ const [sortOrder, setSortOrder] = useState("default");
         .map((genre) => genre.trim())
         .includes(selectedGenre);
 
-   return matchesSearch && matchesGenre;
+   const matchesFavorite =
+  !showFavoritesOnly || favorites.includes(anime.slug);
+
+return matchesSearch && matchesGenre && matchesFavorite;
 }).sort((a, b) => {
   if (sortOrder === "newest") {
     return b.year - a.year;
@@ -155,12 +201,23 @@ const [sortOrder, setSortOrder] = useState("default");
       setSearch("");
       setSelectedGenre("");
       setSortOrder("default");
+      setShowFavoritesOnly(false);
     }}
     className="mt-4 rounded-xl border border-violet-400/40 px-4 py-3 text-violet-300 transition hover:bg-violet-500/10"
   >
     Сбросить фильтры
   </button>
 </div>
+<label className="mb-4 flex min-h-11 cursor-pointer items-center gap-3 text-sm text-gray-300">
+  <input
+    type="checkbox"
+    checked={showFavoritesOnly}
+    onChange={(event) => setShowFavoritesOnly(event.target.checked)}
+    disabled={!favoritesLoaded}
+    className="h-5 w-5 accent-violet-500"
+  />
+  Только избранное
+</label>
 <p className="mb-4 text-sm text-gray-400" role="status">
   Найдено: {filteredAnime.length} из {animeList.length}
 </p>
@@ -186,6 +243,17 @@ const [sortOrder, setSortOrder] = useState("default");
     {anime.title}
   </Link>
 </h3>
+<button
+  type="button"
+  onClick={() => toggleFavorite(anime.slug)}
+  disabled={!favoritesLoaded}
+  aria-pressed={favorites.includes(anime.slug)}
+  className="mb-3 rounded-lg border border-violet-400/40 px-3 py-2 text-sm text-violet-300 transition hover:bg-violet-500/10 disabled:opacity-50"
+>
+  {favorites.includes(anime.slug)
+    ? "♥ В избранном"
+    : "♡ В избранное"}
+</button>
 
                 <p className="mb-2 text-sm text-gray-400">
                   {anime.original}
