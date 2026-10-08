@@ -21,13 +21,6 @@ export default async function AnimePage({
     notFound();
   }
 
-  const cover =
-    anime.original === "Attack on Titan"
-      ? "/anime/attack-on-titan.jpg"
-      : anime.original === "Death Note"
-        ? "/anime/death-note.jpg"
-        : "/anime/your-name.jpeg";
-
   return (
     <main className="min-h-screen bg-[#0b0b12] px-6 py-12 text-white">
       <div className="mx-auto max-w-5xl">
@@ -40,7 +33,7 @@ export default async function AnimePage({
 
         <article className="grid gap-8 md:grid-cols-[300px_1fr]">
           <Image
-            src={cover}
+            src={anime.cover}
             alt={`Постер аниме «${anime.title}»`}
             width={700}
             height={1024}
@@ -49,29 +42,23 @@ export default async function AnimePage({
           />
 
           <div>
-            <h1 className="text-3xl font-bold md:text-5xl">
-              {anime.title}
-            </h1>
+            <h1 className="text-3xl font-bold md:text-5xl">{anime.title}</h1>
             <p className="mt-3 text-gray-400">{anime.original}</p>
             <p className="mt-3 text-gray-400">
-  Год выпуска: {anime.year} · {anime.format}
-</p>
+              Год выпуска: {anime.year} · {anime.format}
+            </p>
             <p className="mt-5 text-violet-300">{anime.genre}</p>
 
-            <h2 className="mt-8 text-xl font-semibold">
-              Описание
-            </h2>
-            <p className="mt-3 leading-8 text-gray-300">
-              {anime.description}
-            </p>
+            <h2 className="mt-8 text-xl font-semibold">Описание</h2>
+            <p className="mt-3 leading-8 text-gray-300">{anime.description}</p>
             <a
-  href={anime.trailerUrl}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="mt-8 inline-block rounded-xl bg-violet-600 px-6 py-3 font-semibold transition hover:bg-violet-500"
->
-  Открыть трейлер ↗
-</a>
+              href={anime.trailerUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-block rounded-xl bg-violet-600 px-6 py-3 font-semibold transition hover:bg-violet-500"
+            >
+              Открыть трейлер ↗
+            </a>
           </div>
         </article>
       </div>
